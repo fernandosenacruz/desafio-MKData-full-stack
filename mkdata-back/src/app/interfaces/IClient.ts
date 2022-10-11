@@ -9,19 +9,21 @@ interface IClient {
   name: string;
   type: string;
   taxpaperRegistration: string;
-  restriction: string;
+  registration: string;
   group: string;
   activate: boolean;
 }
 
-interface ICustomerResponse {
+interface IClientResponse {
   client?: IClient;
   message: string;
   statusCode: StatusCodes;
 }
 
-export {
-  IClientCreate,
-  IClient,
-  ICustomerResponse,
-};
+interface IClientsResponse {
+  clients: IClient[];
+  message: string;
+  statusCode: StatusCodes;
+}
+
+export { IClient, IClientCreate, IClientResponse, IClientsResponse };

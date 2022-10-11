@@ -2,14 +2,14 @@ import 'express-async-errors';
 
 import Express, { Application } from 'express';
 
-// import routers from './routers';
-// import errorMiddleware from './middlewares/error';
+import errorMiddleware from './middlewares/error';
+import routers from './routers';
 
 const App: Application = Express();
 
 App.use(Express.json());
 
-// App.use('/clients', routers.clients);
-// App.use(errorMiddleware);
+App.use(errorMiddleware);
+App.use('/clients', routers.clients);
 
 export default App;
