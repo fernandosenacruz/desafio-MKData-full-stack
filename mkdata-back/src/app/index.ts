@@ -1,5 +1,7 @@
-import Express, { Application } from 'express';
 import 'express-async-errors';
+
+import Express, { Application } from 'express';
+
 // import routers from './routers';
 // import errorMiddleware from './middlewares/error';
 
