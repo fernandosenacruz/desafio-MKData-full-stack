@@ -9,7 +9,7 @@ const App: Application = Express();
 
 App.use(Express.json());
 
-App.use(errorMiddleware);
 App.use('/clients', routers.clients);
+App.use(errorMiddleware);
 
 export default App;

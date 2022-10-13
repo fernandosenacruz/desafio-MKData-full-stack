@@ -18,6 +18,7 @@ const errorMiddleware: ErrorRequestHandler = (
   res,
   _next
 ): ITypedResponse<IErrorResponse> => {
+  console.log(err);
   if (err instanceof ZodError) {
     const zodError = err.issues[0];
 
@@ -27,13 +28,14 @@ const errorMiddleware: ErrorRequestHandler = (
        - ${zodError.message}`,
     });
   }
-  if (err instanceof ApplicationError) {
+
+  if (err.statusCode || err.message) {
     return res.status(err.statusCode).json(err);
   }
 
   return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
     statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
-    message: 'Unexpected Error!',
+    message: 'Something worng does not rigth!',
   });
 };
 

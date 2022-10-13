@@ -4,6 +4,6 @@ import PrismaModel from './PrismaModel';
 
 const prisma = new PrismaClient();
 
-const ClientModel = new PrismaModel(prisma, 'client');
+const ClientModel = new PrismaModel('client');
 
 export default ClientModel;

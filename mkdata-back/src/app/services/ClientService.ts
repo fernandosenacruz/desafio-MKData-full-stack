@@ -7,20 +7,27 @@ import {
   IClientsResponse,
   IClientUpdate,
 } from '../interfaces/IClient';
+import IContext from '../interfaces/IContext';
 import ClientModel from '../models/ClientModel';
 import { IClientModel } from './../interfaces/IClientModel';
 
 export default class ClientService {
   constructor(private clientModel: IClientModel = ClientModel) {}
 
-  public create = async (client: IClient): Promise<IClientResponse> => {
-    const clientExists = await this.clientModel.getOne({
-      taxpaperRegistration: client.taxpaperRegistration,
-    });
+  public create = async (
+    client: IClient,
+    ctx: IContext
+  ): Promise<IClientResponse> => {
+    const clientExists = await this.clientModel.getOne(
+      {
+        taxpaperRegistration: client.taxpaperRegistration,
+      },
+      ctx
+    );
 
     if (clientExists) throw ERRORS.CLIENT.CLIENT_EXISTS;
 
-    const newClient = await this.clientModel.create(client);
+    const newClient = await this.clientModel.create(client, ctx);
 
     return {
       message: MESSAGES.CLIENTS.CREATED,
@@ -29,8 +36,8 @@ export default class ClientService {
     };
   };
 
-  public getAll = async (): Promise<IClientsResponse> => {
-    const clients = await this.clientModel.getAll();
+  public getAll = async (ctx: IContext): Promise<IClientsResponse> => {
+    const clients = await this.clientModel.getAll(ctx);
 
     return {
       message: MESSAGES.CLIENTS.FOUND,
@@ -39,8 +46,11 @@ export default class ClientService {
     };
   };
 
-  public getById = async (clientId: string): Promise<IClientResponse> => {
-    const client = await this.clientModel.getOne({ id: +clientId });
+  public getById = async (
+    clientId: string,
+    ctx: IContext
+  ): Promise<IClientResponse> => {
+    const client = await this.clientModel.getOne({ id: +clientId }, ctx);
 
     if (!client) throw ERRORS.CLIENT.NOT_FOUND;
 
@@ -53,13 +63,18 @@ export default class ClientService {
 
   public updateOne = async (
     clientId: string,
-    payload: IClientUpdate
+    payload: IClientUpdate,
+    ctx: IContext
   ): Promise<IClientResponse> => {
-    const client = await this.clientModel.getOne({ id: +clientId });
+    const client = await this.clientModel.getOne({ id: +clientId }, ctx);
 
     if (!client) throw ERRORS.CLIENT.NOT_FOUND;
 
-    const updatedClient = await this.clientModel.updateOne(+clientId, payload);
+    const updatedClient = await this.clientModel.updateOne(
+      +clientId,
+      payload,
+      ctx
+    );
 
     return {
       message: MESSAGES.CLIENTS.UPDATAED,
@@ -68,8 +83,11 @@ export default class ClientService {
     };
   };
 
-  public deleteOne = async (clientId: string): Promise<IClientResponse> => {
-    const client = await this.clientModel.getOne({ id: +clientId });
+  public deleteOne = async (
+    clientId: string,
+    ctx: IContext
+  ): Promise<IClientResponse> => {
+    const client = await this.clientModel.getOne({ id: +clientId }, ctx);
 
     if (!client) throw ERRORS.CLIENT.NOT_FOUND;
 
