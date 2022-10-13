@@ -1,9 +1,12 @@
+import { Client } from '@prisma/client';
 import { z } from 'zod';
 
 import StatusCodes from '../helpers/others/StatusCodes';
-import { ClientCreateSchema } from '../schemas/clients';
+import { ClientCreateSchema, ClienteUpdateSchema } from '../schemas/clients';
 
 type IClientCreate = z.infer<typeof ClientCreateSchema>;
+
+type IClientUpdate = z.infer<typeof ClienteUpdateSchema>;
 
 interface IClient {
   name: string;
@@ -15,7 +18,7 @@ interface IClient {
 }
 
 interface IClientResponse {
-  client?: IClient;
+  client?: Client | null;
   message: string;
   statusCode: StatusCodes;
 }
@@ -26,4 +29,10 @@ interface IClientsResponse {
   statusCode: StatusCodes;
 }
 
-export { IClient, IClientCreate, IClientResponse, IClientsResponse };
+export {
+  IClient,
+  IClientCreate,
+  IClientUpdate,
+  IClientResponse,
+  IClientsResponse,
+};

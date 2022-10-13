@@ -1,14 +1,22 @@
 import { Router } from 'express';
 
 import { ClientCrontroller } from '../controllers';
-import validateCreate from '../middlewares/client';
+import validations from '../middlewares/client';
 
 const router: Router = Router();
 
 const clientController = new ClientCrontroller();
 
-router.post('/', validateCreate, clientController.create);
-
 router.get('/', clientController.getAll);
+
+router.get('/:id', clientController.getById);
+
+router.post('/', validations.validateCreate, clientController.create);
+
+router.put('/:id', validations.validateUpdate, clientController.updateOne);
+
+router.delete('/:id', clientController.deleteOne);
+
+router
 
 export default router;
