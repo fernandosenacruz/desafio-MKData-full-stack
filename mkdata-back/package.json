@@ -7,8 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "predev": "npm run prisma:migrate",
     "dev": "ts-node-dev src --watch src/app",
-    "prestart": "npm run prisma:migrate && npm run build",
-    "start": "node . ",
+    "prestart": "npm run build",
+    "start": "node .",
     "build": "npx -y tsc",
     "prisma:migrate": "npx prisma db push && npx prisma db pull && npx prisma generate"
   },
