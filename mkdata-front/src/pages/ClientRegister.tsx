@@ -1,9 +1,11 @@
-import React from 'react'
+import FormRegister from '../components/FormRegister';
 
 function ClientRegister() {
   return (
-    <div>ClientRegister</div>
-  )
+    <div className="form-register">
+      <FormRegister />
+    </div>
+  );
 }
 
 export default ClientRegister;
