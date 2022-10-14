@@ -11,8 +11,8 @@ function ClientDetails() {
 
   return (
     <>
-      <Grid container>
-        <Grid item>
+      <Grid container spacing={1} m={1}>
+        <Grid item xs={12} md={6}>
           <CardDetails client={client} />
         </Grid>
       </Grid>

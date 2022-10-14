@@ -14,7 +14,15 @@ const card = (client: IClient, setClient: Function) => {
         onClick={() => setClient(client)}
         style={{ textDecoration: 'none', color: 'inherit' }}
       >
-        <CardContent>
+        <CardContent
+          sx={{
+            backgroundColor: '#c9d6d8bf',
+            '&:hover': {
+              backgroundColor: '#ebe2e2',
+              opacity: [0.9, 0.8, 0.7],
+            },
+          }}
+        >
           <Typography sx={{ fontSize: 14 }} color="text.primary" gutterBottom>
             {client.name}
           </Typography>

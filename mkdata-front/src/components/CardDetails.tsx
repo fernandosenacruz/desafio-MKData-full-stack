@@ -1,15 +1,28 @@
-import { Box } from '@mui/material';
+import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
+import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import { IClient } from '../interfaces/Client';
+import useDeleteDialog from '../hooks/useDeleteDialog';
 
-const card = (client: IClient) => {
+import { IClient } from '../interfaces/Client';
+import DeleteDialog from './DeleteDiolog';
+
+const card = (
+  client: IClient,
+  open: boolean,
+  setOpen: Function,
+) => {
   return (
     <>
-      <CardContent>
+      <CardContent
+        sx={{
+          backgroundColor: '#c9d6d8bf',
+        }}
+      >
         <Typography gutterBottom variant="h5" component="div">
           {client.name}
         </Typography>
@@ -29,18 +42,40 @@ const card = (client: IClient) => {
           Situação: {client.activate ? 'Ativo' : 'Inativo'}
         </Typography>
       </CardContent>
-      <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
+      <CardActions
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: '#d2e4d9b0',
+        }}
+      >
+        <Button size="large" color="success">
+          {<EditTwoToneIcon />}
+        </Button>
+        <Button size="large" color="error" onClick={() => setOpen(true)}>
+          {<DeleteForeverTwoToneIcon />}
+        </Button>
       </CardActions>
+      <DeleteDialog open={open} setOpen={setOpen} />
     </>
   );
 };
 
 export default function CardDetails({ client }: { client: IClient }) {
+  const { open, setOpen } = useDeleteDialog();
+
   return (
-    <Box sx={{ maxWidth: 500 }}>
-      <Card variant="outlined">{card(client)}</Card>
+    <Box
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <Card variant="outlined">
+        {card(client, open, setOpen)}
+      </Card>
     </Box>
   );
 }
