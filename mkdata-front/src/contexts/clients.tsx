@@ -8,6 +8,7 @@ import {
 } from 'react';
 
 import { IClient, IClients } from '../interfaces/Client';
+import { CLIENT_01, CLIENTS } from '../utils/client';
 
 type ContextType = {
   client: IClient;
@@ -19,19 +20,9 @@ type ContextType = {
 type Props = { children: ReactNode };
 
 export const DEFAULT_VALUE = {
-  client: {
-    id: 0,
-    name: '',
-    type: '',
-    taxpaperRegistration: '',
-    group: '',
-    registration: '',
-    activate: false,
-    createdAt: '',
-    updatedAt: '',
-  },
+  client: CLIENT_01,
   clients: {
-    data: [],
+    data: CLIENTS,
   },
 };
 
