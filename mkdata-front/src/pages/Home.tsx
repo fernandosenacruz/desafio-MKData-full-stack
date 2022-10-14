@@ -5,7 +5,7 @@ import ClientCard from '../components/ClientCard';
 import { ClientsContext } from '../contexts/clients';
 
 function Home() {
-  const { clients } = useContext(ClientsContext);
+  const { clients, setClient } = useContext(ClientsContext);
 
   useEffect(() => {}, [clients]);
 
@@ -14,7 +14,7 @@ function Home() {
       <Grid container spacing={4} p={2}>
         {clients?.data?.map((client) =>(
           <Grid item key={client.id} p={2} mb={2}>
-            <ClientCard client={client} />
+            <ClientCard client={client} setClient={setClient} />
           </Grid>
         ))}
       </Grid>

@@ -6,11 +6,12 @@ import { Link } from 'react-router-dom';
 
 import { IClient } from '../interfaces/Client';
 
-const card = (client: IClient) => {
+const card = (client: IClient, setClient: Function) => {
   return (
     <>
       <Link
         to={`/client/${client.id}`}
+        onClick={() => setClient(client)}
         style={{ textDecoration: 'none', color: 'inherit' }}
       >
         <CardContent>
@@ -29,10 +30,16 @@ const card = (client: IClient) => {
   );
 };
 
-export default function ClientCard({ client }: { client: IClient }) {
+export default function ClientCard({
+  client,
+  setClient,
+}: {
+  client: IClient;
+  setClient: Function;
+}) {
   return (
-    <Box sx={{ minWidth: 275 }}>
-      <Card variant="outlined">{card(client)}</Card>
+    <Box>
+      <Card variant="outlined">{card(client, setClient)}</Card>
     </Box>
   );
 }
