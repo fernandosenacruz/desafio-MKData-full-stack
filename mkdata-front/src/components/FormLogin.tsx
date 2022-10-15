@@ -32,6 +32,9 @@ function FormLogin() {
 
     if (user === fakeUser.user && password === fakeUser.password) {
       navigate('/clients');
+    } else {
+      setUser('Usuário inválido');
+      setPassword('Senha incorreta');
     }
   };
 
@@ -72,7 +75,7 @@ function FormLogin() {
                   : setShowPassword('password');
               }}
             >
-              {<VisibilityTwoToneIcon color="primary" />}
+              {<VisibilityTwoToneIcon color="action" />}
             </Button>
           </Grid>
           <Grid item xs={12} sm={10}>

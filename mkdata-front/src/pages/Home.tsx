@@ -3,6 +3,7 @@ import Grid from '@mui/material/Grid';
 import { useContext, useEffect } from 'react';
 
 import ClientCard from '../components/ClientCard';
+import Header from '../components/Header';
 import { ClientsContext } from '../contexts/clients';
 
 function Home() {
@@ -12,6 +13,7 @@ function Home() {
 
   return (
     <>
+      <Header path={'/clients'} />
       <Box
         sx={{
           display: 'flex',

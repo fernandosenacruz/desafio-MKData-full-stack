@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from 'react';
 
 import CardDetails from '../components/CardDetails';
 import FormEditClient from '../components/FormEditClient';
+import Header from '../components/Header';
 import { ClientsContext } from '../contexts/clients';
 
 function ClientDetails() {
@@ -14,6 +15,7 @@ function ClientDetails() {
 
   return (
     <>
+      <Header path={'/clients'} />
       <Box
         sx={{
           display: 'flex',
