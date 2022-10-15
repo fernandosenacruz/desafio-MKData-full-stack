@@ -1,10 +1,14 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import MenuItem from '@mui/material/MenuItem';
-import TextField from '@mui/material/TextField';
 import { SyntheticEvent, useRef, useState } from 'react';
 
-import { ITarget } from '../interfaces/ITarget';
+import ITarget from '../interfaces/ITarget';
+import InputIdentification from '../partials/InputIdentification';
+import InputName from '../partials/InputName';
+import InputRegistration from '../partials/InputRegistration';
+import InputTaxpaperRegistration from '../partials/InputTaxpaperRegistration';
+import InputType from '../partials/InputType';
+import Select from '../partials/Select';
 import labels from '../utils/labels';
 
 export default function FormRegister() {
@@ -58,99 +62,54 @@ export default function FormRegister() {
       autoComplete="off"
     >
       <>
-        <TextField
-          name="name"
-          label="Nome"
+        <InputName
           value={name}
-          required
-          onChange={({ target }) => handleChangeState(target, setName)}
+          onChange={handleChangeState}
+          setChange={setName}
         />
-        <TextField
-          name="type"
-          select
-          label="Tipo"
+        <InputType
           value={type}
-          onChange={({ target }) => handleChangeState(target, setType)}
-          helperText="Selecione o tipo do cliente..."
-        >
-          {labels.types.map((option, index) => (
-            <MenuItem key={option + index} value={option}>
-              {option}
-            </MenuItem>
-          ))}
-        </TextField>
-        <TextField
-          name="taxpaperRegistration"
-          label={type === 'CPF' ? 'CPF' : 'CNPJ'}
+          options={labels.types}
+          onChange={handleChangeState}
+          setChange={setType}
+        />
+        <InputTaxpaperRegistration
+          type={type}
           value={taxpaperRegistration}
-          required
-          onChange={({ target }) =>
-            handleChangeState(target, setTaxpaperRegistration)
-          }
-          helperText="*Utilize pontos e dígitos"
-          placeholder={
-            type === 'CPF' ? 'Ex. 000.000.008-00' : 'Ex. XX.XXX.XXX/0001-XX'
-          }
+          onChange={handleChangeState}
+          setChange={setTaxpaperRegistration}
         />
-        <TextField
-          name="identification"
-          select
-          label={type === 'CPF' ? 'RG' : 'IE'}
+        <InputIdentification
+          type={type}
           value={identification}
-          onChange={({ target }) =>
-            handleChangeState(target, setIdentification)
-          }
-          helperText="*RG (Registro Geral) *IE (Incrição Estadual)"
-        >
-          {labels.identifications.map((option, index) => (
-            <MenuItem key={option + index} value={option}>
-              {option}
-            </MenuItem>
-          ))}
-        </TextField>
-        <TextField
-          name="registration"
-          label={type === 'CPF' ? 'RG' : 'IE'}
-          value={registration}
-          required
-          onChange={({ target }) => handleChangeState(target, setRegistration)}
-          helperText={
-            type === 'CPF'
-              ? '*Utilize dígitos e Órgão Expedidor'
-              : '*Separe por pontos'
-          }
-          placeholder={
-            type === 'CPF' ? 'Ex. 0.000.000 SDS-PE' : 'Ex. 388.108.598.269'
-          }
+          options={labels.identifications}
+          onChange={handleChangeState}
+          setChange={setIdentification}
         />
-        <TextField
-          name="group"
-          select
-          label="Grupo"
+        <InputRegistration
+          type={type}
+          value={registration}
+          onChange={handleChangeState}
+          setChange={setRegistration}
+        />
+        <Select
+          name={'group'}
+          label={'Grupo'}
           value={group}
-          onChange={({ target }) => handleChangeState(target, setGroup)}
-          helperText="Selecione o grupo a que pertence o cliente..."
-        >
-          {labels.groups.map((option, index) => (
-            <MenuItem key={option + index} value={option}>
-              {option}
-            </MenuItem>
-          ))}
-        </TextField>
-        <TextField
-          name="status"
-          select
-          label="Situação"
+          options={labels.groups}
+          onChange={handleChangeState}
+          setChange={setGroup}
+          helperText={'Selecione o grupo a que pertence o cliente...'}
+        />
+        <Select
+          name={'status'}
+          label={'Situação'}
           value={status}
-          onChange={({ target }) => handleChangeState(target, setStatus)}
-          helperText="Selecione a situação do cliente..."
-        >
-          {labels.status.map((option, index) => (
-            <MenuItem key={option + index} value={option}>
-              {option}
-            </MenuItem>
-          ))}
-        </TextField>
+          options={labels.status}
+          onChange={handleChangeState}
+          setChange={setStatus}
+          helperText={'Selecione a situação do cliente...'}
+        />
         <Button type="submit" color="success" variant="contained">
           Cadastar
         </Button>

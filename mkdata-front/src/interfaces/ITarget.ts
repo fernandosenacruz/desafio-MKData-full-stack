@@ -1,4 +1,4 @@
-export interface ITarget {
+export default interface ITarget {
   name: { value: string };
   type: { value: string };
   registration: { value: string };
