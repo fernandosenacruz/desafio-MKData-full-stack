@@ -12,3 +12,8 @@ export interface ITargetEdit {
   group: { value: string };
   status: { value: string };
 }
+
+export interface ITargetLogin {
+  user: { value: string };
+  password: { value: string };
+}
