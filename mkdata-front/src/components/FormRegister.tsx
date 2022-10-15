@@ -10,6 +10,7 @@ import InputTaxpaperRegistration from '../partials/InputTaxpaperRegistration';
 import InputType from '../partials/InputType';
 import Select from '../partials/Select';
 import labels from '../utils/labels';
+import verifyTaxpaperRegistration from '../utils/verifyTaxpaperRegistration';
 
 export default function FormRegister() {
   const [name, setName] = useState('');
@@ -40,14 +41,7 @@ export default function FormRegister() {
     const registration = target.registration.value;
     const taxpaperRegistration = target.taxpaperRegistration.value;
 
-    console.log({
-      name,
-      type,
-      group,
-      status,
-      registration,
-      taxpaperRegistration,
-    });
+    console.log(verifyTaxpaperRegistration(type, taxpaperRegistration));
   };
 
   return (
