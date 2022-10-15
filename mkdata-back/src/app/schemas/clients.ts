@@ -24,7 +24,6 @@ const getOne = ClienteIdSchema;
 export const ClienteUpdateSchema = z
   .object({
     name: z.string().min(3).max(50),
-    type: z.string().min(3).max(4),
     group: z.string().min(3),
     activate: z.boolean(),
   })
