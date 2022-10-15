@@ -1,8 +1,10 @@
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
-import { useState } from 'react';
+import { SyntheticEvent, useRef, useState } from 'react';
 
+import { ITarget } from '../interfaces/ITarget';
 import labels from '../utils/labels';
 
 export default function FormRegister() {
@@ -14,6 +16,8 @@ export default function FormRegister() {
   const [identification, setIdentification] = useState('');
   const [taxpaperRegistration, setTaxpaperRegistration] = useState('');
 
+  const form = useRef();
+
   const handleChangeState = (
     target: HTMLInputElement | HTMLTextAreaElement,
     setState: Function
@@ -21,9 +25,33 @@ export default function FormRegister() {
     setState(target.value);
   };
 
+  const handleSubmit = (e: SyntheticEvent) => {
+    e.preventDefault();
+    const target = e.target as typeof e.target & ITarget;
+
+    const name = target.name.value;
+    const type = target.type.value;
+    const group = target.group.value;
+    const status = target.status.value;
+    const registration = target.registration.value;
+    const taxpaperRegistration = target.taxpaperRegistration.value;
+
+    console.log({
+      name,
+      type,
+      group,
+      status,
+      registration,
+      taxpaperRegistration,
+    });
+  };
+
   return (
     <Box
+      ref={form}
       component="form"
+      id="form-register"
+      onSubmit={(e) => handleSubmit(e)}
       sx={{
         '& .MuiTextField-root': { m: 1, width: '30ch' },
       }}
@@ -31,14 +59,14 @@ export default function FormRegister() {
     >
       <>
         <TextField
-          id="name"
+          name="name"
           label="Nome"
           value={name}
           required
           onChange={({ target }) => handleChangeState(target, setName)}
         />
         <TextField
-          id="type"
+          name="type"
           select
           label="Tipo"
           value={type}
@@ -52,7 +80,7 @@ export default function FormRegister() {
           ))}
         </TextField>
         <TextField
-          id="taxpaperRegistration"
+          name="taxpaperRegistration"
           label={type === 'CPF' ? 'CPF' : 'CNPJ'}
           value={taxpaperRegistration}
           required
@@ -61,13 +89,11 @@ export default function FormRegister() {
           }
           helperText="*Utilize pontos e dígitos"
           placeholder={
-            type === "CPF"
-            ? "Ex. 000.000.008-00"
-            : "Ex. XX.XXX.XXX/0001-XX"
+            type === 'CPF' ? 'Ex. 000.000.008-00' : 'Ex. XX.XXX.XXX/0001-XX'
           }
         />
         <TextField
-          id="identification"
+          name="identification"
           select
           label={type === 'CPF' ? 'RG' : 'IE'}
           value={identification}
@@ -83,7 +109,7 @@ export default function FormRegister() {
           ))}
         </TextField>
         <TextField
-          id="registration"
+          name="registration"
           label={type === 'CPF' ? 'RG' : 'IE'}
           value={registration}
           required
@@ -94,13 +120,11 @@ export default function FormRegister() {
               : '*Separe por pontos'
           }
           placeholder={
-            type === 'CPF'
-              ? 'Ex. 0.000.000 SDS-PE'
-              : 'Ex. 388.108.598.269'
+            type === 'CPF' ? 'Ex. 0.000.000 SDS-PE' : 'Ex. 388.108.598.269'
           }
         />
         <TextField
-          id="group"
+          name="group"
           select
           label="Grupo"
           value={group}
@@ -114,7 +138,7 @@ export default function FormRegister() {
           ))}
         </TextField>
         <TextField
-          id="status"
+          name="status"
           select
           label="Situação"
           value={status}
@@ -127,6 +151,9 @@ export default function FormRegister() {
             </MenuItem>
           ))}
         </TextField>
+        <Button type="submit" color="success" variant="contained">
+          Cadastar
+        </Button>
       </>
     </Box>
   );
