@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import { SyntheticEvent, useRef, useState } from 'react';
 
 import useAdjustmentDialog from '../hooks/useAdjustmentDialog';
-import ITarget from '../interfaces/ITarget';
+import { ITargetRegister } from '../interfaces/ITarget';
 import InputIdentification from '../partials/InputIdentification';
 import InputName from '../partials/InputName';
 import InputRegistration from '../partials/InputRegistration';
@@ -14,7 +14,7 @@ import labels from '../utils/labels';
 import verifyTaxpaperRegistration from '../utils/verifyTaxpaperRegistration';
 import AdjustmentDialog from './AdjustmentDialog';
 
-export default function FormRegister() {
+function FormRegisterClient() {
   const [name, setName] = useState('');
   const [type, setType] = useState(labels.types[0]);
   const [registration, setRegistration] = useState('');
@@ -35,7 +35,7 @@ export default function FormRegister() {
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    const target = e.target as typeof e.target & ITarget;
+    const target = e.target as typeof e.target & ITargetRegister;
 
     const name = target.name.value;
     const type = target.type.value;
@@ -121,3 +121,5 @@ export default function FormRegister() {
     </>
   );
 }
+
+export default FormRegisterClient;

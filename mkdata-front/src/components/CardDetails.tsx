@@ -6,8 +6,8 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import useDeleteDialog from '../hooks/useDeleteDialog';
 
+import useDeleteDialog from '../hooks/useDeleteDialog';
 import { IClient } from '../interfaces/Client';
 import DeleteDialog from './DeleteDialog';
 
@@ -15,6 +15,7 @@ const card = (
   client: IClient,
   open: boolean,
   setOpen: Function,
+  setEdit: Function
 ) => {
   return (
     <>
@@ -50,7 +51,7 @@ const card = (
           backgroundColor: '#d2e4d9b0',
         }}
       >
-        <Button size="large" color="success">
+        <Button size="large" color="success" onClick={() => setEdit(true)}>
           {<EditTwoToneIcon />}
         </Button>
         <Button size="large" color="error" onClick={() => setOpen(true)}>
@@ -62,7 +63,13 @@ const card = (
   );
 };
 
-export default function CardDetails({ client }: { client: IClient }) {
+export default function CardDetails({
+  client,
+  setEdit,
+}: {
+  client: IClient;
+  setEdit: Function;
+}) {
   const { open, setOpen } = useDeleteDialog();
 
   return (
@@ -74,7 +81,7 @@ export default function CardDetails({ client }: { client: IClient }) {
       }}
     >
       <Card variant="outlined">
-        {card(client, open, setOpen)}
+        {card(client, open, setOpen, setEdit)}
       </Card>
     </Box>
   );

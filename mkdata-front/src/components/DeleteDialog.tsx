@@ -27,11 +27,11 @@ export default function DeleteDialog({
         aria-labelledby="responsive-dialog-delete"
       >
         <DialogTitle id="responsive-dialog-delete">
-          {<NewReleasesTwoToneIcon />}
+          {<NewReleasesTwoToneIcon color="error" />}
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Você está preste a apagar permanentemente este cliente! A ação não
+            Você está prestes a apagar permanentemente este cliente! A ação não
             poderá ser desfeita.
           </DialogContentText>
         </DialogContent>

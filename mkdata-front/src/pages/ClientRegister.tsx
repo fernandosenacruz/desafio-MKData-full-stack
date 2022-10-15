@@ -1,9 +1,9 @@
-import FormRegister from '../components/FormRegister';
+import FormRegisterClient from '../components/FormRegisterClient';
 
 function ClientRegister() {
   return (
     <div className="form-register">
-      <FormRegister />
+      <FormRegisterClient />
     </div>
   );
 }
