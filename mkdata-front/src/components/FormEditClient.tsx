@@ -1,5 +1,6 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
 import { SyntheticEvent, useRef, useState } from 'react';
 
 import { ITargetEdit } from '../interfaces/ITarget';
@@ -45,12 +46,14 @@ function FormEditClient({ setEdit }: { setEdit: Function }) {
         }}
         autoComplete="off"
       >
-        <>
+        <Grid item xs={12}>
           <InputName
             value={name}
             onChange={handleChangeState}
             setChange={setName}
           />
+        </Grid>
+        <Grid item xs={12}>
           <Select
             name={'group'}
             label={'Grupo'}
@@ -60,6 +63,8 @@ function FormEditClient({ setEdit }: { setEdit: Function }) {
             setChange={setGroup}
             helperText={'Selecione o grupo a que pertence o cliente...'}
           />
+        </Grid>
+        <Grid item xs={12}>
           <Select
             name={'status'}
             label={'Situação'}
@@ -69,6 +74,8 @@ function FormEditClient({ setEdit }: { setEdit: Function }) {
             setChange={setStatus}
             helperText={'Selecione a situação do cliente...'}
           />
+        </Grid>
+        <Grid item xs={12}>
           <Button
             type="button"
             color="error"
@@ -80,7 +87,7 @@ function FormEditClient({ setEdit }: { setEdit: Function }) {
           <Button type="submit" color="success" variant="contained">
             Atualizar
           </Button>
-        </>
+        </Grid>
       </Box>
     </>
   );

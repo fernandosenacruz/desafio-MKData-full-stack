@@ -1,10 +1,10 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
 import { SyntheticEvent, useRef, useState } from 'react';
 
 import useAdjustmentDialog from '../hooks/useAdjustmentDialog';
 import { ITargetRegister } from '../interfaces/ITarget';
-import InputIdentification from '../partials/InputIdentification';
 import InputName from '../partials/InputName';
 import InputRegistration from '../partials/InputRegistration';
 import InputTaxpaperRegistration from '../partials/InputTaxpaperRegistration';
@@ -20,7 +20,6 @@ function FormRegisterClient() {
   const [registration, setRegistration] = useState('');
   const [group, setGroup] = useState(labels.groups[0]);
   const [status, setStatus] = useState(labels.status[1]);
-  const [identification, setIdentification] = useState('');
   const [taxpaperRegistration, setTaxpaperRegistration] = useState('');
   const { open, setOpen } = useAdjustmentDialog();
 
@@ -59,41 +58,45 @@ function FormRegisterClient() {
         id="form-register"
         onSubmit={(e) => handleSubmit(e)}
         sx={{
-          '& .MuiTextField-root': { m: 1, width: '30ch' },
+          '& .MuiTextField-root': {
+            m: 1,
+            width: { xs: '30ch', md: '50ch', lg: '70ch' },
+          },
         }}
         autoComplete="off"
       >
-        <>
+        <Grid item xs={12}>
           <InputName
             value={name}
             onChange={handleChangeState}
             setChange={setName}
           />
+        </Grid>
+        <Grid item xs={12}>
           <InputType
             value={type}
             options={labels.types}
             onChange={handleChangeState}
             setChange={setType}
           />
+        </Grid>
+        <Grid item xs={12}>
           <InputTaxpaperRegistration
             type={type}
             value={taxpaperRegistration}
             onChange={handleChangeState}
             setChange={setTaxpaperRegistration}
           />
-          <InputIdentification
-            type={type}
-            value={identification}
-            options={labels.identifications}
-            onChange={handleChangeState}
-            setChange={setIdentification}
-          />
+        </Grid>
+        <Grid item xs={12}>
           <InputRegistration
             type={type}
             value={registration}
             onChange={handleChangeState}
             setChange={setRegistration}
           />
+        </Grid>
+        <Grid item xs={12}>
           <Select
             name={'group'}
             label={'Grupo'}
@@ -103,6 +106,8 @@ function FormRegisterClient() {
             setChange={setGroup}
             helperText={'Selecione o grupo a que pertence o cliente...'}
           />
+        </Grid>
+        <Grid item xs={12}>
           <Select
             name={'status'}
             label={'Situação'}
@@ -112,10 +117,12 @@ function FormRegisterClient() {
             setChange={setStatus}
             helperText={'Selecione a situação do cliente...'}
           />
+        </Grid>
+        <Grid item xs={12}>
           <Button type="submit" color="success" variant="contained">
             Cadastar
           </Button>
-        </>
+        </Grid>
       </Box>
       <AdjustmentDialog open={open} setOpen={setOpen} />
     </>
