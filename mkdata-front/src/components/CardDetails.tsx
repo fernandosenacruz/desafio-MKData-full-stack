@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 import useDeleteDialog from '../hooks/useDeleteDialog';
 
 import { IClient } from '../interfaces/Client';
-import DeleteDialog from './DeleteDiolog';
+import DeleteDialog from './DeleteDialog';
 
 const card = (
   client: IClient,

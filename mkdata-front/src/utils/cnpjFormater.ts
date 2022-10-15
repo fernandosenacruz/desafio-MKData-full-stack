@@ -1,8 +1,6 @@
 const cnpjFormater = (cpf: string) => {
   cpf = cpf.replace(/[^\d]/g, '');
 
-  console.log(cpf, cpf.length);
-
   if (cpf.length === 14)
     return cpf.replace(
       /^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/,

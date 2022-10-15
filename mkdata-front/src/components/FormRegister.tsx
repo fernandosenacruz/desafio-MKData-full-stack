@@ -2,6 +2,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { SyntheticEvent, useRef, useState } from 'react';
 
+import useAdjustmentDialog from '../hooks/useAdjustmentDialog';
 import ITarget from '../interfaces/ITarget';
 import InputIdentification from '../partials/InputIdentification';
 import InputName from '../partials/InputName';
@@ -11,6 +12,7 @@ import InputType from '../partials/InputType';
 import Select from '../partials/Select';
 import labels from '../utils/labels';
 import verifyTaxpaperRegistration from '../utils/verifyTaxpaperRegistration';
+import AdjustmentDialog from './AdjustmentDialog';
 
 export default function FormRegister() {
   const [name, setName] = useState('');
@@ -20,6 +22,7 @@ export default function FormRegister() {
   const [status, setStatus] = useState(labels.status[1]);
   const [identification, setIdentification] = useState('');
   const [taxpaperRegistration, setTaxpaperRegistration] = useState('');
+  const { open, setOpen } = useAdjustmentDialog();
 
   const form = useRef();
 
@@ -41,73 +44,80 @@ export default function FormRegister() {
     const registration = target.registration.value;
     const taxpaperRegistration = target.taxpaperRegistration.value;
 
-    console.log(verifyTaxpaperRegistration(type, taxpaperRegistration));
+    const isValid = verifyTaxpaperRegistration(type, taxpaperRegistration);
+
+    !isValid
+      ? setOpen(true)
+      : console.log({ name, type, group, status, registration, isValid });
   };
 
   return (
-    <Box
-      ref={form}
-      component="form"
-      id="form-register"
-      onSubmit={(e) => handleSubmit(e)}
-      sx={{
-        '& .MuiTextField-root': { m: 1, width: '30ch' },
-      }}
-      autoComplete="off"
-    >
-      <>
-        <InputName
-          value={name}
-          onChange={handleChangeState}
-          setChange={setName}
-        />
-        <InputType
-          value={type}
-          options={labels.types}
-          onChange={handleChangeState}
-          setChange={setType}
-        />
-        <InputTaxpaperRegistration
-          type={type}
-          value={taxpaperRegistration}
-          onChange={handleChangeState}
-          setChange={setTaxpaperRegistration}
-        />
-        <InputIdentification
-          type={type}
-          value={identification}
-          options={labels.identifications}
-          onChange={handleChangeState}
-          setChange={setIdentification}
-        />
-        <InputRegistration
-          type={type}
-          value={registration}
-          onChange={handleChangeState}
-          setChange={setRegistration}
-        />
-        <Select
-          name={'group'}
-          label={'Grupo'}
-          value={group}
-          options={labels.groups}
-          onChange={handleChangeState}
-          setChange={setGroup}
-          helperText={'Selecione o grupo a que pertence o cliente...'}
-        />
-        <Select
-          name={'status'}
-          label={'Situação'}
-          value={status}
-          options={labels.status}
-          onChange={handleChangeState}
-          setChange={setStatus}
-          helperText={'Selecione a situação do cliente...'}
-        />
-        <Button type="submit" color="success" variant="contained">
-          Cadastar
-        </Button>
-      </>
-    </Box>
+    <>
+      <Box
+        ref={form}
+        component="form"
+        id="form-register"
+        onSubmit={(e) => handleSubmit(e)}
+        sx={{
+          '& .MuiTextField-root': { m: 1, width: '30ch' },
+        }}
+        autoComplete="off"
+      >
+        <>
+          <InputName
+            value={name}
+            onChange={handleChangeState}
+            setChange={setName}
+          />
+          <InputType
+            value={type}
+            options={labels.types}
+            onChange={handleChangeState}
+            setChange={setType}
+          />
+          <InputTaxpaperRegistration
+            type={type}
+            value={taxpaperRegistration}
+            onChange={handleChangeState}
+            setChange={setTaxpaperRegistration}
+          />
+          <InputIdentification
+            type={type}
+            value={identification}
+            options={labels.identifications}
+            onChange={handleChangeState}
+            setChange={setIdentification}
+          />
+          <InputRegistration
+            type={type}
+            value={registration}
+            onChange={handleChangeState}
+            setChange={setRegistration}
+          />
+          <Select
+            name={'group'}
+            label={'Grupo'}
+            value={group}
+            options={labels.groups}
+            onChange={handleChangeState}
+            setChange={setGroup}
+            helperText={'Selecione o grupo a que pertence o cliente...'}
+          />
+          <Select
+            name={'status'}
+            label={'Situação'}
+            value={status}
+            options={labels.status}
+            onChange={handleChangeState}
+            setChange={setStatus}
+            helperText={'Selecione a situação do cliente...'}
+          />
+          <Button type="submit" color="success" variant="contained">
+            Cadastar
+          </Button>
+        </>
+      </Box>
+      <AdjustmentDialog open={open} setOpen={setOpen} />
+    </>
   );
 }

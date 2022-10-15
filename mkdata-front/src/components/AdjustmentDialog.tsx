@@ -6,8 +6,9 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import CheckCircleTwoToneIcon from '@mui/icons-material/CheckCircleTwoTone';
 
-export default function DeleteDialog({
+export default function AdjustmentDialog({
   open,
   setOpen,
 }: {
@@ -23,21 +24,20 @@ export default function DeleteDialog({
         fullScreen={fullScreen}
         open={open}
         onClose={() => setOpen(false)}
-        aria-labelledby="responsive-dialog-delete"
+        aria-labelledby="responsive-dialog-adjustment"
       >
-        <DialogTitle id="responsive-dialog-delete"></DialogTitle>
+        <DialogTitle id="responsive-dialog-adjustment">
+          Formato do CPF ou CNPJ inválido!
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Você está preste a apagar permanentemente este cliente! A ação não
-            poderá ser desfeita.
+            CPF no formato "99999999899" sem letras, espaços ou dígitos.
+            CNPJ no formato "99999999899891" sem letras, espaços ou dígitos.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={() => setOpen(false)} color="success">
-            Cancelar
-          </Button>
-          <Button onClick={() => setOpen(false)} autoFocus color="error">
-            Apagar
+          <Button onClick={() => setOpen(false)} autoFocus color="warning">
+            {<CheckCircleTwoToneIcon/>}
           </Button>
         </DialogActions>
       </Dialog>
