@@ -31,7 +31,7 @@ export default function DeleteDialog({
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Você está prestes a apagar permanentemente este cliente! A ação não
+            Você está prestes a apagar permanentemente este cliente! Esta ação não
             poderá ser desfeita.
           </DialogContentText>
         </DialogContent>

@@ -2,10 +2,18 @@ import LogoutTwoToneIcon from '@mui/icons-material/LogoutTwoTone';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
 
-function Logout() {
+import hideOnMobile from '../utils/hideOnMobile';
+
+function Logout({
+  shouldHideOnMobile,
+}: {
+  shouldHideOnMobile: boolean | undefined;
+}) {
+  const hide = hideOnMobile(shouldHideOnMobile);
+
   return (
     <Link to="/">
-      <Button>
+      <Button sx={{ ...hide }}>
         <LogoutTwoToneIcon color="error" />
       </Button>
     </Link>
