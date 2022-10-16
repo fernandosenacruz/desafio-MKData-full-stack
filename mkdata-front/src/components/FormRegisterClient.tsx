@@ -11,6 +11,7 @@ import InputTaxpaperRegistration from '../partials/InputTaxpaperRegistration';
 import InputType from '../partials/InputType';
 import Select from '../partials/Select';
 import labels from '../utils/labels';
+import verifyStatus from '../utils/verifyStatus';
 import verifyTaxpaperRegistration from '../utils/verifyTaxpaperRegistration';
 import AdjustmentDialog from './AdjustmentDialog';
 
@@ -44,10 +45,18 @@ function FormRegisterClient() {
     const taxpaperRegistration = target.taxpaperRegistration.value;
 
     const isValid = verifyTaxpaperRegistration(type, taxpaperRegistration);
+    const activate = verifyStatus(status);
 
     !isValid
       ? setOpen(true)
-      : console.log({ name, type, group, status, registration, isValid });
+      : console.log({
+          name,
+          type,
+          group,
+          registration,
+          isValid,
+          activate,
+        });
   };
 
   return (
