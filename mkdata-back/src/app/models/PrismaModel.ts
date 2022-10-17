@@ -1,4 +1,4 @@
-import { Client, PrismaClient } from '@prisma/client';
+import { Client } from '@prisma/client';
 
 import { IClientCreate, IClientUpdate } from '../interfaces/IClient';
 import IContext from '../interfaces/IContext';
@@ -40,8 +40,4 @@ export default class PrismaModel {
   public deleteOne = async (id: number, ctx: IContext) => {
     return ctx.prisma[this.model].delete({ where: { id } });
   };
-
-  // public deleteMany = async (list: string[]) => {
-  //   return this.prisma[this.model].deleteMany({ where: { id: +[...list] } });
-  // };
 }
