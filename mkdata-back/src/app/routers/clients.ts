@@ -12,7 +12,7 @@ router.get('/', clientController.getAll);
 
 router.get('/:id', clientController.getById);
 
-router.post('/', validations.validateCreate, clientController.create);
+router.post('/post', validations.validateCreate, clientController.create);
 
 router.put('/:id', validations.validateUpdate, clientController.updateOne);
 
