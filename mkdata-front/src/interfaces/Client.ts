@@ -21,7 +21,6 @@ export interface IClientCreate {
 
 export interface IClientUpdate {
   name: string;
-  type: string;
   group: string;
   activate: boolean;
 }

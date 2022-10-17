@@ -48,7 +48,7 @@ export default function ResponseDialog({
               <HeadersButton
                 shouldHideOnLogin={false}
                 path={'/clients'}
-                size={'large'}
+                size={'small'}
                 color={'primary'}
                 label={'return to clients'}
                 text={'Retornar para lista de clientes'}
