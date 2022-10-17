@@ -10,10 +10,6 @@ export interface IClient {
   updatedAt: string;
 }
 
-export interface IClients {
-  data: IClient[];
-}
-
 export interface IClientCreate {
   name: string;
   type: string;
@@ -28,4 +24,18 @@ export interface IClientUpdate {
   type: string;
   group: string;
   activate: boolean;
+}
+
+export interface IClientResponse {
+  response?: {
+    data: {
+      message: string;
+      statuCode: number;
+    };
+  };
+  data?: {
+    client: IClient;
+    message: string;
+    statusCode: number;
+  };
 }

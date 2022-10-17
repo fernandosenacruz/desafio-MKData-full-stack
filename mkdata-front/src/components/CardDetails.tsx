@@ -7,7 +7,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
-import useDeleteDialog from '../hooks/useDeleteDialog';
+import useDialog from '../hooks/useDialog';
 import { IClient } from '../interfaces/Client';
 import DeleteDialog from './DeleteDialog';
 
@@ -70,7 +70,7 @@ export default function CardDetails({
   client: IClient;
   setEdit: Function;
 }) {
-  const { open, setOpen } = useDeleteDialog();
+  const { open, setOpen } = useDialog();
 
   return (
     <Box
