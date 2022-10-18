@@ -6,8 +6,8 @@ export interface ILabels {
 
 const labels: ILabels = {
   types: ['CPF', 'CNPJ'],
-  status: ['Ativo', 'Invativo'],
-  groups: ['SAÚDE', 'EMPRESARIAL', 'CONCULTORIA'],
+  status: ['Ativo', 'Inativo'],
+  groups: ['SAÚDE', 'EMPRESARIAL', 'CONSULTORIA'],
 };
 
 export default labels;
