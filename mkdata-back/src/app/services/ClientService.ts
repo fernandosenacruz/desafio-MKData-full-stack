@@ -91,6 +91,11 @@ export default class ClientService {
 
     if (!client) throw ERRORS.CLIENT.NOT_FOUND;
 
+    await this.clientModel.deleteOne(
+      +clientId,
+      ctx
+    );
+
     return {
       message: MESSAGES.CLIENTS.DELETED,
       statusCode: StatusCodes.OK,
