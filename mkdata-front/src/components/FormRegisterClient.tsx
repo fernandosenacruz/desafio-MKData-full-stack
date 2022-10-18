@@ -147,7 +147,9 @@ function FormRegisterClient() {
       <AdjustmentDialog open={open} setOpen={setOpen} />
       <ResponseDialog
         open={openResponse}
+        component={'register'}
         setOpen={setOpenResponse}
+        buttonText={'Cadastar novo cliente'}
       />
     </>
   );

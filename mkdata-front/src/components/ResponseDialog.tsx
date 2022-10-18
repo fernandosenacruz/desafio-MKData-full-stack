@@ -15,24 +15,40 @@ import HeadersButton from '../partials/HeadersButton';
 export default function ResponseDialog({
   open,
   setOpen,
+  setEdit,
+  component,
+  buttonText,
 }: {
   open: boolean;
   setOpen: Function;
+  setEdit?: Function;
+  component: string;
+  buttonText: string;
 }) {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
   const { response } = useContext(ClientsContext);
 
+  const onClickFunction = (str: string) => {
+    if (str === 'register') {
+      window.location.reload()
+    } else if (setEdit) {
+      setOpen(false);
+      setEdit(false);
+    }
+
+  }
+  
   return (
     <>
       <Dialog
         fullScreen={fullScreen}
         open={open}
         onClose={() => setOpen(false)}
-        aria-labelledby="responsive-dialog-register"
+        aria-labelledby={`responsive-dialog-${component}`}
       >
-        <DialogTitle id="responsive-dialog-register">
+        <DialogTitle id={`responsive-dialog-${component}`}>
           {<InfoTwoToneIcon color="info" />}
         </DialogTitle>
         <DialogContent>
@@ -54,11 +70,11 @@ export default function ResponseDialog({
                 text={'Retornar para lista de clientes'}
               />
               <Button
-                onClick={() => window.location.reload()}
+                onClick={() => onClickFunction(component)}
                 autoFocus
                 color="success"
               >
-                Cadastrar novo cliente
+                {buttonText}
               </Button>
             </>
           )}

@@ -21,7 +21,7 @@ function FormEditClient({ setEdit }: { setEdit: Function }) {
 
   const { openResponse, setOpenResponse } = useDialog();
 
-  const { client, setResponse } = useContext(ClientsContext);
+  const { client, setClient, setResponse } = useContext(ClientsContext);
 
   const form = useRef();
 
@@ -49,6 +49,8 @@ function FormEditClient({ setEdit }: { setEdit: Function }) {
 
     setResponse(updatedClient);
     setOpenResponse(true);
+
+    if (updatedClient.data) setClient(updatedClient.data.client);
   };
 
   return (
@@ -106,7 +108,13 @@ function FormEditClient({ setEdit }: { setEdit: Function }) {
           </Button>
         </Grid>
       </Box>
-      <ResponseDialog open={openResponse} setOpen={setOpenResponse} />
+      <ResponseDialog
+        open={openResponse}
+        setEdit={setEdit}
+        component={'details'}
+        setOpen={setOpenResponse}
+        buttonText={'Ok'}
+      />
     </>
   );
 }
