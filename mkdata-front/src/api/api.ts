@@ -33,11 +33,11 @@ export const getClientById = async (id: string) => {
 
 export const createClient = async (payload: IClientCreate) => {
   try {
-    const data = await api.post('/clients/', payload);
+    const data = await api.post('/clients/post', payload);
 
     return data;
   } catch (error) {
-    console.log(error);
+    return(error);
   }
 };
 
@@ -47,7 +47,7 @@ export const updateClient = async (id: string, payload: IClientUpdate) => {
 
     return data;
   } catch (error) {
-    console.log(error);
+    return(error);
   }
 };
 

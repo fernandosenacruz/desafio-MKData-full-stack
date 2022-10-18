@@ -24,7 +24,7 @@ function Home() {
         }}
       >
         <Grid container spacing={4} p={2}>
-          {clients?.data?.map((client) => (
+          {clients?.map((client) => (
             <Grid item key={client.id} p={2} mb={2}>
               <ClientCard client={client} setClient={setClient} />
             </Grid>

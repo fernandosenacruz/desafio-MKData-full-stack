@@ -1,17 +1,28 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
-import { SyntheticEvent, useRef, useState } from 'react';
+import { SyntheticEvent, useContext, useRef, useState } from 'react';
 
+import { getClients, updateClient } from '../api/api';
+import { ClientsContext } from '../contexts/clients';
+import useDialog from '../hooks/useDialog';
+import { IClientResponse } from '../interfaces/Client';
 import { ITargetEdit } from '../interfaces/ITarget';
 import InputName from '../partials/InputName';
 import Select from '../partials/Select';
 import labels from '../utils/labels';
+import verifyStatus from '../utils/verifyStatus';
+import ResponseDialog from './ResponseDialog';
 
 function FormEditClient({ setEdit }: { setEdit: Function }) {
   const [name, setName] = useState('');
   const [group, setGroup] = useState(labels.groups[0]);
   const [status, setStatus] = useState(labels.status[1]);
+
+  const { openResponse, setOpenResponse } = useDialog();
+
+  const { client, setClient, setClients, setResponse } =
+    useContext(ClientsContext);
 
   const form = useRef();
 
@@ -22,16 +33,29 @@ function FormEditClient({ setEdit }: { setEdit: Function }) {
     setState(target.value);
   };
 
-  const handleSubmit = (e: SyntheticEvent) => {
+  const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
     const target = e.target as typeof e.target & ITargetEdit;
     const name = target.name.value;
     const group = target.group.value;
     const status = target.status.value;
 
-    console.log({ name, group, status });
+    const activate = verifyStatus(status);
 
-    setEdit(false);
+    const updatedClient = (await updateClient(client.id.toString(), {
+      name,
+      group,
+      activate,
+    })) as unknown as IClientResponse;
+
+    setResponse(updatedClient);
+
+    const clients = await getClients();
+
+    setClients(clients?.data?.clients);
+    setOpenResponse(true);
+
+    if (updatedClient.data) setClient(updatedClient.data.client);
   };
 
   return (
@@ -89,6 +113,13 @@ function FormEditClient({ setEdit }: { setEdit: Function }) {
           </Button>
         </Grid>
       </Box>
+      <ResponseDialog
+        open={openResponse}
+        setEdit={setEdit}
+        component={'details'}
+        setOpen={setOpenResponse}
+        buttonText={'Ok'}
+      />
     </>
   );
 }

@@ -1,9 +1,12 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
-import { SyntheticEvent, useRef, useState } from 'react';
+import { SyntheticEvent, useContext, useRef, useState } from 'react';
 
-import useAdjustmentDialog from '../hooks/useAdjustmentDialog';
+import { createClient, getClients } from '../api/api';
+import { ClientsContext } from '../contexts/clients';
+import useDialog from '../hooks/useDialog';
+import { IClientResponse } from '../interfaces/Client';
 import { ITargetRegister } from '../interfaces/ITarget';
 import InputName from '../partials/InputName';
 import InputRegistration from '../partials/InputRegistration';
@@ -14,6 +17,7 @@ import labels from '../utils/labels';
 import verifyStatus from '../utils/verifyStatus';
 import verifyTaxpaperRegistration from '../utils/verifyTaxpaperRegistration';
 import AdjustmentDialog from './AdjustmentDialog';
+import ResponseDialog from './ResponseDialog';
 
 function FormRegisterClient() {
   const [name, setName] = useState('');
@@ -22,7 +26,9 @@ function FormRegisterClient() {
   const [group, setGroup] = useState(labels.groups[0]);
   const [status, setStatus] = useState(labels.status[1]);
   const [taxpaperRegistration, setTaxpaperRegistration] = useState('');
-  const { open, setOpen } = useAdjustmentDialog();
+  const { open, setOpen, openResponse, setOpenResponse } = useDialog();
+
+  const { setClients , setResponse } = useContext(ClientsContext);
 
   const form = useRef();
 
@@ -33,7 +39,7 @@ function FormRegisterClient() {
     setState(target.value);
   };
 
-  const handleSubmit = (e: SyntheticEvent) => {
+  const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
     const target = e.target as typeof e.target & ITargetRegister;
 
@@ -47,16 +53,25 @@ function FormRegisterClient() {
     const isValid = verifyTaxpaperRegistration(type, taxpaperRegistration);
     const activate = verifyStatus(status);
 
-    !isValid
-      ? setOpen(true)
-      : console.log({
-          name,
-          type,
-          group,
-          registration,
-          isValid,
-          activate,
-        });
+    if (!isValid) {
+      setOpen(true);
+    } else {
+      const newClient = await createClient({
+        name,
+        type,
+        group,
+        registration,
+        taxpaperRegistration: isValid,
+        activate,
+      }) as unknown as IClientResponse;
+
+      setResponse(newClient);
+
+      const clients = await getClients();
+
+      setClients(clients?.data?.clients);
+      setOpenResponse(true);
+    }
   };
 
   return (
@@ -134,6 +149,12 @@ function FormRegisterClient() {
         </Grid>
       </Box>
       <AdjustmentDialog open={open} setOpen={setOpen} />
+      <ResponseDialog
+        open={openResponse}
+        component={'register'}
+        setOpen={setOpenResponse}
+        buttonText={'Cadastar novo cliente'}
+      />
     </>
   );
 }

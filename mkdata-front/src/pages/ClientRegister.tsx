@@ -6,9 +6,9 @@ import Header from '../components/Header';
 import { ClientsContext } from '../contexts/clients';
 
 function ClientRegister() {
-  const { client } = useContext(ClientsContext);
+  const { response } = useContext(ClientsContext);
 
-  useEffect(() => {}, [client]);
+  useEffect(() => {}, [response]);
 
   return (
     <>
