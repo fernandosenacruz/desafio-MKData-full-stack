@@ -12,10 +12,10 @@ import { IClient } from '../interfaces/Client';
 import DeleteDialog from './DeleteDialog';
 
 const card = (
-  client: IClient,
   open: boolean,
   setOpen: Function,
-  setEdit: Function
+  setEdit: Function,
+  client: IClient,
 ) => {
   return (
     <>
@@ -25,22 +25,22 @@ const card = (
         }}
       >
         <Typography gutterBottom variant="h5" component="div">
-          {client.name}
+          {client?.name}
         </Typography>
         <Typography variant="subtitle2" color="text.secondary">
-          {client.type}
+          {client?.type}
         </Typography>
         <Typography variant="subtitle1" color="text.primary">
-          {client.taxpaperRegistration}
+          {client?.taxpaperRegistration}
         </Typography>
         <Typography variant="subtitle2" color="text.secondary">
-          {client.registration}
+          {client?.registration}
         </Typography>
         <Typography variant="overline" color="text.primary">
-          {client.group}
+          {client?.group}
         </Typography>
         <Typography variant="h6" color="text.secondary">
-          Situação: {client.activate ? 'Ativo' : 'Inativo'}
+          Situação: {client?.activate ? 'Ativo' : 'Inativo'}
         </Typography>
       </CardContent>
       <CardActions
@@ -58,17 +58,17 @@ const card = (
           {<DeleteForeverTwoToneIcon />}
         </Button>
       </CardActions>
-      <DeleteDialog open={open} setOpen={setOpen} />
+      <DeleteDialog client={client} open={open} setOpen={setOpen} />
     </>
   );
 };
 
 export default function CardDetails({
-  client,
   setEdit,
+  client,
 }: {
-  client: IClient;
   setEdit: Function;
+  client: IClient;
 }) {
   const { open, setOpen } = useDialog();
 
@@ -81,7 +81,7 @@ export default function CardDetails({
       }}
     >
       <Card variant="outlined">
-        {card(client, open, setOpen, setEdit)}
+        {card(open, setOpen, setEdit, client)}
       </Card>
     </Box>
   );

@@ -24,13 +24,13 @@ const card = (client: IClient, setClient: Function) => {
           }}
         >
           <Typography sx={{ fontSize: 14 }} color="text.primary" gutterBottom>
-            {client.name}
+            {client?.name}
           </Typography>
           <Typography sx={{ mb: 1.5 }} color="text.secondary">
-            {client.type}
+            {client?.type}
           </Typography>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            {client.taxpaperRegistration}
+            {client?.taxpaperRegistration}
           </Typography>
         </CardContent>
       </Link>

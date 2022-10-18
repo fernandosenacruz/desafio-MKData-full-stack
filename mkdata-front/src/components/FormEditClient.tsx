@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import { SyntheticEvent, useContext, useRef, useState } from 'react';
 
-import { updateClient } from '../api/api';
+import { getClients, updateClient } from '../api/api';
 import { ClientsContext } from '../contexts/clients';
 import useDialog from '../hooks/useDialog';
 import { IClientResponse } from '../interfaces/Client';
@@ -21,7 +21,8 @@ function FormEditClient({ setEdit }: { setEdit: Function }) {
 
   const { openResponse, setOpenResponse } = useDialog();
 
-  const { client, setClient, setResponse } = useContext(ClientsContext);
+  const { client, setClient, setClients, setResponse } =
+    useContext(ClientsContext);
 
   const form = useRef();
 
@@ -48,6 +49,10 @@ function FormEditClient({ setEdit }: { setEdit: Function }) {
     })) as unknown as IClientResponse;
 
     setResponse(updatedClient);
+
+    const clients = await getClients();
+
+    setClients(clients?.data?.clients);
     setOpenResponse(true);
 
     if (updatedClient.data) setClient(updatedClient.data.client);

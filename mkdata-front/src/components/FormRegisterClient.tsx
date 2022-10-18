@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import { SyntheticEvent, useContext, useRef, useState } from 'react';
 
-import { createClient } from '../api/api';
+import { createClient, getClients } from '../api/api';
 import { ClientsContext } from '../contexts/clients';
 import useDialog from '../hooks/useDialog';
 import { IClientResponse } from '../interfaces/Client';
@@ -28,7 +28,7 @@ function FormRegisterClient() {
   const [taxpaperRegistration, setTaxpaperRegistration] = useState('');
   const { open, setOpen, openResponse, setOpenResponse } = useDialog();
 
-  const { setResponse } = useContext(ClientsContext);
+  const { setClients , setResponse } = useContext(ClientsContext);
 
   const form = useRef();
 
@@ -66,6 +66,10 @@ function FormRegisterClient() {
       }) as unknown as IClientResponse;
 
       setResponse(newClient);
+
+      const clients = await getClients();
+
+      setClients(clients?.data?.clients);
       setOpenResponse(true);
     }
   };

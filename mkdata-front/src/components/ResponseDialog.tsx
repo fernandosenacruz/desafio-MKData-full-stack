@@ -32,14 +32,15 @@ export default function ResponseDialog({
 
   const onClickFunction = (str: string) => {
     if (str === 'register') {
-      window.location.reload()
+      window.location.reload();
     } else if (setEdit) {
       setOpen(false);
       setEdit(false);
+    } else {
+      setOpen(false);
     }
+  };
 
-  }
-  
   return (
     <>
       <Dialog
